@@ -174,7 +174,6 @@ def add_tournaments_from_excel(excel_path):
                  pass
 
 
-
 from .models import Tournament ,RoundinfoErrorLog  
 
 import time
