@@ -45,7 +45,7 @@ Projenizin kök dizininde celery.py adlı bir dosya oluşturun ve aşağıdaki y
     def debug_task(self):
         print(f'Request: {self.request!r}')
 ## 3. settings.py Dosyasına Celery Ayarlarının Eklenmesi
-    Celery'nin ayarlarını settings.py dosyasına ekleyin:
+Celery'nin ayarlarını settings.py dosyasına ekleyin:
 
 
 ### Celery Ayarları
