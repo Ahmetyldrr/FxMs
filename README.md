@@ -15,8 +15,8 @@
    CREATE USER django_user WITH PASSWORD 'your_password';
    ALTER ROLE django_user SET client_encoding TO 'utf8';
    ALTER ROLE django_user SET default_transaction_isolation TO 'read committed';
-   ALTER ROLE django_user SET timezone TO 'UTC';<br>
-   GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;<br>
+   ALTER ROLE django_user SET timezone TO 'UTC';
+   GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;
 
 ## Django setting.py ayarlama
 
@@ -56,8 +56,8 @@ Hata mesajında, "password authentication failed" diyor, yani django_user kullan
 
 Sistemi tekrar çalıştır.
 
-    sudo systemctl status postgresql<br>
-    sudo systemctl start postgresql <br>
+    sudo systemctl status postgresql
+    sudo systemctl start postgresql
 
 ERROR : django.db.migrations.exceptions.MigrationSchemaMissing: Unable to create the django_migrations table (permission denied for schema public
 Şema üzerinde gerekli izinleri vermek için şu komutları çalıştırın<br>
