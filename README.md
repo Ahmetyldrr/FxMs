@@ -48,34 +48,43 @@ ERROR: Failed building wheel for psycopg2
 
 failed: FATAL:  password authentication failed for user "django_user"
 Bu hata, PostgreSQL sunucusuna bağlanmaya çalışırken kullanıcı adı ve şifre doğrulamasında bir sorun yaşandığını belirtir. 
-Hata mesajında, "password authentication failed" diyor, yani django_user kullanıcısının kimlik doğrulaması için girilen şifre doğru değil.
+Hata mesajında, "password authentication failed" diyor, yani django_user kullanıcısının kimlik doğrulaması için girilen şifre doğru değil.<br>
 
-Şifreyi sıfırlamak için şu komutu çalıştırın:
+Şifreyi sıfırlamak için şu komutu çalıştırın:<br>
+
     ALTER USER django_user WITH PASSWORD 'new_password';<br>
 
 Sistemi tekrar çalıştır.
+
     sudo systemctl status postgresql<br>
     sudo systemctl start postgresql <br>
 
 ERROR : django.db.migrations.exceptions.MigrationSchemaMissing: Unable to create the django_migrations table (permission denied for schema public
 Şema üzerinde gerekli izinleri vermek için şu komutları çalıştırın<br>
+
     GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;<br>
     ALTER USER django_user CREATEDB;<br>
 
 Veritabanındaki public şeması üzerinde de izinleri güncelleyin.<br>
+
     GRANT ALL ON SCHEMA public TO django_user;<br>
 
 Kullanıcınızın yetkilerini kontrol etmek için<br>
+
     \du<br>
 
 Öncelikle, PostgreSQL'deki django_user kullanıcısının gerçekten yetkilere sahip olup olmadığını doğrulamanız önemlidir. <br>
+
     \du <br>
+    
 komutuyla kullanıcıya verilen izinleri ve varsayılan yetkileri kontrol edin<br>
+
     GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;<br>
     GRANT ALL ON SCHEMA public TO django_user;<br>
     ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO django_user;<br>
 
 ÇÖZÜM : Veritabanı Sahipliği Sorunu (Owner)<br>
+
     ALTER DATABASE django_project_db OWNER TO django_user;<br>
     ALTER SCHEMA public OWNER TO django_user;<br>
 
