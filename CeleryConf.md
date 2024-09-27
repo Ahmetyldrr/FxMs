@@ -140,6 +140,6 @@ Servislerin doğru bir şekilde çalışıp çalışmadığını kontrol etmek i
 ## 9. Test Etme
 Her şey kurulduktan sonra, Celery'nin görevleri doğru bir şekilde çalışıp çalışmadığını test etmek için:
 
-celery -A proje_adi worker --loglevel=info
+    celery -A proje_adi worker --loglevel=info
 
 Sonuç olarak, Django ile Celery ve Celery Beat'i Ubuntu'da bir servis olarak kurup, arka planda görevlerinizi çalıştırmaya başlamış olacaksınız.
