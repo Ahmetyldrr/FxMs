@@ -63,7 +63,7 @@ ERROR : django.db.migrations.exceptions.MigrationSchemaMissing: Unable to create
 Şema üzerinde gerekli izinleri vermek için şu komutları çalıştırın<br>
 
     GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;
-    ALTER USER django_user CREATEDB;<br>
+    ALTER USER django_user CREATEDB;
 
 Veritabanındaki public şeması üzerinde de izinleri güncelleyin.
 
@@ -77,7 +77,7 @@ Kullanıcınızın yetkilerini kontrol etmek için
 
     \du
     
-komutuyla kullanıcıya verilen izinleri ve varsayılan yetkileri kontrol edin
+komutuyla kullanıcıya verilen izinleri ve varsayılan yetkileri kontrol edin.
 
     GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;
     GRANT ALL ON SCHEMA public TO django_user;
