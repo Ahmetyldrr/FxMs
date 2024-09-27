@@ -147,3 +147,108 @@ Sonuç olarak, Django ile Celery ve Celery Beat'i Ubuntu'da bir servis olarak ku
 (celerypy_dosyası)[https://github.com/Ahmetyldrr/SofaPro/blob/main/sofa/celery.py]
 
 
+## Flower Task Takibi
+
+Flower Kurulumu ve Yapılandırılması
+
+### 1. Flower Kurulumu
+Öncelikle Flower'ı projenizin sanal ortamında yükleyin:
+
+
+    pip install flower
+    
+### 2. Flower'ı Başlatma
+
+Flower'ı çalıştırmak için Celery ile birlikte aşağıdaki komutu kullanabilirsiniz:
+
+    celery -A sofa flower
+    
+Bu komut, Flower'ı başlatacak ve varsayılan olarak http://localhost:5555/ adresinde çalıştıracaktır.
+
+Eğer Flower'ı farklı bir port üzerinden çalıştırmak isterseniz, şu komutu kullanabilirsiniz:
+
+
+    celery -A proje_adi flower --port=8080
+
+### 3. Flower İçin Servis Dosyasını Oluşturma
+Flower'ı Ubuntu'da bir servis olarak çalıştırmak için aşağıdaki adımları izleyebilirsiniz.
+
+Flower servis dosyasını oluşturun:
+
+    sudo nano /etc/systemd/system/flower.service
+    
+Aşağıdaki yapılandırmayı servis dosyasına ekleyin:
+
+    [Unit]
+    Description=Flower Service for Celery Monitoring
+    After=network.target
+    
+    [Service]
+    User=ahmety  # Kullanıcı adınızı buraya girin
+    Group=www-data
+    WorkingDirectory=/home/ahmety/Masaüstü/DjangoPro/sofa  # Proje dizininizi girin
+    ExecStart=/home/ahmety/Masaüstü/myenv/bin/celery -A proje_adi flower --port=5555 --loglevel=info
+    Restart=always
+    
+    [Install]
+    WantedBy=multi-user.target
+
+
+Servisi başlatın ve etkinleştirin:
+
+    sudo systemctl start flower
+    sudo systemctl enable flower
+    
+### 4. Flower Servisinin Durumunu Kontrol Etme
+Flower servisinin durumunu kontrol etmek ve çalıştığından emin olmak için:
+
+    sudo systemctl status flower
+
+Eğer servis başlamazsa ya da hata mesajları alırsanız, 
+
+    journalctl -u flower.service 
+
+komutunu kullanarak daha detaylı hata kayıtlarını görebilirsiniz.
+
+### 5. Flower İçin Authentication (Kimlik Doğrulama) Ekleme
+
+Flower'a kimlik doğrulama eklemek için flower.service dosyanızda ExecStart komutunu şu şekilde güncelleyebilirsiniz:
+
+    ExecStart=/home/ahmety/Masaüstü/myenv/bin/celery -A proje_adi flower --port=5555 --basic_auth=username:password --loglevel=info
+
+Burada username ve password değerlerini istediğiniz kimlik bilgileri ile değiştirin.
+
+### 6. Flower'ı Dışarıdan Erişilebilir Yapmak
+Flower'ı yalnızca localhost'ta değil, diğer bilgisayarlardan da erişilebilir yapmak istiyorsanız, flower.service dosyasındaki ExecStart komutunu şu şekilde düzenleyin:
+
+    ExecStart=/home/ahmety/Masaüstü/myenv/bin/celery -A proje_adi flower --port=5555 --address=0.0.0.0 --basic_auth=username:password --loglevel=info
+
+Bu şekilde Flower, ağdaki herhangi bir IP adresinden erişilebilir olacaktır.
+
+### 7. Flower Loglarını Kontrol Etme
+
+Flower servisinin loglarını kontrol etmek için aşağıdaki komutları kullanabilirsiniz:
+
+    sudo journalctl -u flower.service
+    
+### 8. Flower ile Kullanılabilecek Diğer Parametreler
+
+
+
+    --broker=redis://localhost:6379/0: Broker URL'sini belirtmek için.
+    --address=0.0.0.0: Tüm IP adreslerinden erişim sağlamak için.
+    --port=5555: Çalışacağı portu belirtmek için.
+    --basic_auth=user:pass: Kimlik doğrulama eklemek için.
+    --persistent: Flower oturum verilerini ve durumunu diske yazması için.
+
+#### 9. Flower Arayüzüne Erişme
+Flower arayüzüne erişmek için tarayıcınızdan şu URL'yi ziyaret edebilirsiniz:
+
+    http://localhost:5555/
+    
+Eğer --address=0.0.0.0 parametresi ile çalıştırdıysanız, IP adresinizi ve portu kullanarak Flower'a erişebilirsiniz:
+
+    http://sunucu_ip_adresi:5555/
+
+
+
