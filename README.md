@@ -11,12 +11,12 @@
     psql
 ## Bir veritabanı ve kullanıcı oluşturun
 
-  CREATE DATABASE django_project_db;
-  CREATE USER django_user WITH PASSWORD 'your_password';
-  ALTER ROLE django_user SET client_encoding TO 'utf8';
-  ALTER ROLE django_user SET default_transaction_isolation TO 'read committed';
-  ALTER ROLE django_user SET timezone TO 'UTC';
-  GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;
+   CREATE DATABASE django_project_db; <br>
+   CREATE USER django_user WITH PASSWORD 'your_password';<br>
+   ALTER ROLE django_user SET client_encoding TO 'utf8';<br>
+   ALTER ROLE django_user SET default_transaction_isolation TO 'read committed';<br>
+   ALTER ROLE django_user SET timezone TO 'UTC';<br>
+   GRANT ALL PRIVILEGES ON DATABASE django_project_db TO django_user;<br>
 
 ## Django setting.py ayarlama
 
