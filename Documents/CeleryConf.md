@@ -144,7 +144,7 @@ Her şey kurulduktan sonra, Celery'nin görevleri doğru bir şekilde çalışı
 
 Sonuç olarak, Django ile Celery ve Celery Beat'i Ubuntu'da bir servis olarak kurup, arka planda görevlerinizi çalıştırmaya başlamış olacaksınız.
 
-(celerypy_dosyası)[https://github.com/Ahmetyldrr/SofaPro/blob/main/sofa/celery.py]
+[celerypy_dosyası](https://github.com/Ahmetyldrr/SofaPro/blob/main/sofa/celery.py)
 
 
 ## Flower Task Takibi
