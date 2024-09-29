@@ -6,26 +6,26 @@ Aşağıdaki kodlarda aşama aşama görevin nasıl çalıştığı incelenecekt
 
 ## Modelin Kurulması(model.py)
   
-  class RoundinfoModel(models.Model):
-      round = models.IntegerField()  # Sıra numarası (round)
-      name = models.CharField(max_length=255, blank=True, null=True)  # Adı (opsiyonel)
-      slug = models.SlugField(max_length=255, blank=True, null=True)  # Slug (opsiyonel)
-      prefix = models.CharField(max_length=255, blank=True, null=True)  # Ön ek (opsiyonel)
-      current = models.IntegerField()  # Geçerli haftanın numarası
-      week = models.CharField(max_length=50)  # Hafta durumu: Biten, Devam, Baslamadı
-      last = models.IntegerField()  # Ligdeki son hafta numarası
-      tournament_id = models.IntegerField()  # Turnuva kimliği
-      season_id = models.IntegerField()  # Sezon kimliği
-      UpdateTime = models.DateTimeField(default=timezone.now)  # Güncelleme zamanı (otomatik)
-  
-      def __str__(self):
-          return f"Round {self.round} - {self.week}"
-      
-      class Meta:
-           constraints = [
-               models.UniqueConstraint(fields=['round','season_id', 'tournament_id'
-                                          ], name='unique_week_tournament')
-           ]
+    class RoundinfoModel(models.Model):
+        round = models.IntegerField()  # Sıra numarası (round)
+        name = models.CharField(max_length=255, blank=True, null=True)  # Adı (opsiyonel)
+        slug = models.SlugField(max_length=255, blank=True, null=True)  # Slug (opsiyonel)
+        prefix = models.CharField(max_length=255, blank=True, null=True)  # Ön ek (opsiyonel)
+        current = models.IntegerField()  # Geçerli haftanın numarası
+        week = models.CharField(max_length=50)  # Hafta durumu: Biten, Devam, Baslamadı
+        last = models.IntegerField()  # Ligdeki son hafta numarası
+        tournament_id = models.IntegerField()  # Turnuva kimliği
+        season_id = models.IntegerField()  # Sezon kimliği
+        UpdateTime = models.DateTimeField(default=timezone.now)  # Güncelleme zamanı (otomatik)
+    
+        def __str__(self):
+            return f"Round {self.round} - {self.week}"
+        
+        class Meta:
+             constraints = [
+                 models.UniqueConstraint(fields=['round','season_id', 'tournament_id'
+                                            ], name='unique_week_tournament')
+             ]
 
 bu modelimize otomatik api den veri göndermeye çalışacağız.
 Öncelikle bu model için bir veri kaynağı olması lazım
