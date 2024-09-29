@@ -41,22 +41,22 @@ Bu fonksiyonu tasky.py de yada farklı bir python dosyasında yazıp import edeb
   
       """
       
+          
+          #https://www.sofascore.com/api/v1/unique-tournament/17015/season/61648/rounds
+      #https://www.sofascore.com/api/v1/unique-tournament/13363/season/57319/rounds
+      #52,63814
+      #https://www.sofascore.com/api/v1/unique-tournament/804/season/61242/events/round/29/slug/final
+      df = Roundinfo(804,61242)
+      df
+      #hafta_indices = df[df['week'] == 'Devam'].index
+      #hafta = dict(df.iloc[hafta_indices[0]])
+      #data = RoundData(hafta["tournament_id"],hafta["season_id"],hafta["round"],hafta["slug"],hafta["prefix"])
+      #data.to_excel("Haftanın_Maçları.xlsx")
+      #data
+      bu fonksiyon ile ligin hangi haftada olduğu ve biten maçları alınır.
+      ayrıca ilgili hafta yukarıda koda göre dizayn edilebilir.
       
-      #https://www.sofascore.com/api/v1/unique-tournament/17015/season/61648/rounds
-  #https://www.sofascore.com/api/v1/unique-tournament/13363/season/57319/rounds
-  #52,63814
-  #https://www.sofascore.com/api/v1/unique-tournament/804/season/61242/events/round/29/slug/final
-  df = Roundinfo(804,61242)
-  df
-  #hafta_indices = df[df['week'] == 'Devam'].index
-  #hafta = dict(df.iloc[hafta_indices[0]])
-  #data = RoundData(hafta["tournament_id"],hafta["season_id"],hafta["round"],hafta["slug"],hafta["prefix"])
-  #data.to_excel("Haftanın_Maçları.xlsx")
-  #data
-  bu fonksiyon ile ligin hangi haftada olduğu ve biten maçları alınır.
-  ayrıca ilgili hafta yukarıda koda göre dizayn edilebilir.
-  
-      """
+          """
       conn = http.client.HTTPSConnection('www.sofascore.com')
       conn.request('GET', '/api/v1/unique-tournament/'+str(t)+'/season/'+str(s)+'/rounds')
       response = conn.getresponse()
