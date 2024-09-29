@@ -154,6 +154,30 @@ Modellerin adminde görünmesi için Roundinfomodeladmin adında bir class oluş
 
 Bu işlemleri bitirdikten sonra admin sistemine giriş yapılır ve period_task ta bir görev oluşturulur ve sistem manuel olarak çalıştırılabilir.
 
+## Örnek action kodu
+
+bu kod actions = [export_to_excel] ile roundinfoadmin modeli için aktive edilmiştir.
+    
+    @admin.action(description="Seçilen Roundinfo verilerini Excel'e indir")
+    def export_to_excel(modeladmin, request, queryset):
+        # Queryset'ten alınan verileri bir DataFrame'e dönüştürüyoruz
+        data = queryset.values(
+            'tournament_id', 'season_id', 'round', 'name', 'slug', 'prefix', 'current', 'week', 'last', 'UpdateTime'
+        )
+        df = pd.DataFrame.from_records(data)
+    
+        # Zaman dilimi farkını kaldırıyoruz (Excel bunu desteklemediği için)
+        if 'UpdateTime' in df.columns:
+            df['UpdateTime'] = df['UpdateTime'].dt.tz_localize(None)
+    
+        # Excel dosyasına aktarmak için HTTP response oluşturuyoruz
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=roundinfo.xlsx'
+    
+        # DataFrame'i Excel dosyasına yazıyoruz
+        df.to_excel(response, index=False, engine='openpyxl')
+    
+        return response
 
 
 
