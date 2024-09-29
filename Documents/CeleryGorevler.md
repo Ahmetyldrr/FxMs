@@ -95,7 +95,7 @@ Bu fonksiyonu tasky.py de yada farklı bir python dosyasında yazıp import edeb
       
       return df
   
-## Celery ve Model Parametrelerinin Alınması(tasks.)
+## Celery ve Model Parametrelerinin Alınması(tasks.py)
 
 Kodların celery de görünmesi içimn shared_task ile decoratöre bağlanması lazım.
 burada tournaments modelimizde parametre almak için bu modeldeki verileri çağırıyoruz.
@@ -140,14 +140,14 @@ Yapılan bu api çağrısından gelen veriler ise daha sonra for döngüsü ile 
 
 Modellerin adminde görünmesi için Roundinfomodeladmin adında bir class oluşturduktan sonra admin.site.register ile ekleme işlemi yapılır.
 
-class RoundinfoModelAdmin(admin.ModelAdmin):
-    list_display = ('round', 'name', 'current', 'week', 'last', 'tournament_id', 'season_id', 'UpdateTime')  # Liste görünümü
-    list_filter = ('week', 'current', 'last')  # Filtreleme
-    search_fields = ('name', 'slug', 'tournament_id', 'season_id')  # Arama yapılacak alanlar
-    ordering = ('-UpdateTime',)  # Güncelleme zamanına göre sıralama (en son güncellenenler önce)
-    actions = [export_to_excel]
-
-admin.site.register(RoundinfoModel, RoundinfoModelAdmin)
+    class RoundinfoModelAdmin(admin.ModelAdmin):
+        list_display = ('round', 'name', 'current', 'week', 'last', 'tournament_id', 'season_id', 'UpdateTime')  # Liste görünümü
+        list_filter = ('week', 'current', 'last')  # Filtreleme
+        search_fields = ('name', 'slug', 'tournament_id', 'season_id')  # Arama yapılacak alanlar
+        ordering = ('-UpdateTime',)  # Güncelleme zamanına göre sıralama (en son güncellenenler önce)
+        actions = [export_to_excel]
+    
+    admin.site.register(RoundinfoModel, RoundinfoModelAdmin)
 
 
 ## Modelin Admide Çalıştırılması
