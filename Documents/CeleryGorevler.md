@@ -36,64 +36,64 @@ Bu modelde iki parametre var , tournament_id ve season_id bu fonksiyona bu iki p
 Bu fonksiyonu tasky.py de yada farklı bir python dosyasında yazıp import edebiliriz.
 
 
-  def Roundinfo(t,s):
+      def Roundinfo(t,s):
   
   
-      """
-      
-          
-          #https://www.sofascore.com/api/v1/unique-tournament/17015/season/61648/rounds
-      #https://www.sofascore.com/api/v1/unique-tournament/13363/season/57319/rounds
-      #52,63814
-      #https://www.sofascore.com/api/v1/unique-tournament/804/season/61242/events/round/29/slug/final
-      df = Roundinfo(804,61242)
-      df
-      #hafta_indices = df[df['week'] == 'Devam'].index
-      #hafta = dict(df.iloc[hafta_indices[0]])
-      #data = RoundData(hafta["tournament_id"],hafta["season_id"],hafta["round"],hafta["slug"],hafta["prefix"])
-      #data.to_excel("Haftanın_Maçları.xlsx")
-      #data
-      bu fonksiyon ile ligin hangi haftada olduğu ve biten maçları alınır.
-      ayrıca ilgili hafta yukarıda koda göre dizayn edilebilir.
-      
-          """
-      conn = http.client.HTTPSConnection('www.sofascore.com')
-      conn.request('GET', '/api/v1/unique-tournament/'+str(t)+'/season/'+str(s)+'/rounds')
-      response = conn.getresponse()
-      data = json.loads(response.read())
-      all_round  = pd.DataFrame(data["rounds"])
-      all_round["current"] = data["currentRound"]["round"]
-      
-      all_round["week"] = all_round.apply(
-          lambda row: "Devam" if row["round"] == row["current"] 
-          else "Biten" if row["round"] < row["current"] 
-          else "Baslamadı", axis=1)
-      
-      # "last" sütununun eklenmesi (Ligin son haftası)
-      all_round["last"] = len(all_round)
-  
-      all_round["tournament_id"] = t
-      all_round[py"season_id"] = s
-  
-      columns_to_select = ['round', 'name', 'slug', 'prefix', 'current', 'week', 'last','tournament_id', 'season_id']
-      
-      for column in columns_to_select:
-          if column not in all_round.columns:
-              all_round[column] = ""  
-              
-      df = all_round[columns_to_select]
-      
-      #df["UpdateTime"] = datetime.now()
-      
-      devam_indices = df[df['week'] == 'Devam'].index
-      if len(devam_indices) > 1:
-          for i in range(devam_indices[0],devam_indices[1]):
-              df.loc[i, 'week'] = 'Biten'
-              
+        """
+        
+            
+            #https://www.sofascore.com/api/v1/unique-tournament/17015/season/61648/rounds
+        #https://www.sofascore.com/api/v1/unique-tournament/13363/season/57319/rounds
+        #52,63814
+        #https://www.sofascore.com/api/v1/unique-tournament/804/season/61242/events/round/29/slug/final
+        df = Roundinfo(804,61242)
+        df
+        #hafta_indices = df[df['week'] == 'Devam'].index
+        #hafta = dict(df.iloc[hafta_indices[0]])
+        #data = RoundData(hafta["tournament_id"],hafta["season_id"],hafta["round"],hafta["slug"],hafta["prefix"])
+        #data.to_excel("Haftanın_Maçları.xlsx")
+        #data
+        bu fonksiyon ile ligin hangi haftada olduğu ve biten maçları alınır.
+        ayrıca ilgili hafta yukarıda koda göre dizayn edilebilir.
+        
+            """
+        conn = http.client.HTTPSConnection('www.sofascore.com')
+        conn.request('GET', '/api/v1/unique-tournament/'+str(t)+'/season/'+str(s)+'/rounds')
+        response = conn.getresponse()
+        data = json.loads(response.read())
+        all_round  = pd.DataFrame(data["rounds"])
+        all_round["current"] = data["currentRound"]["round"]
+        
+        all_round["week"] = all_round.apply(
+            lambda row: "Devam" if row["round"] == row["current"] 
+            else "Biten" if row["round"] < row["current"] 
+            else "Baslamadı", axis=1)
+        
+        # "last" sütununun eklenmesi (Ligin son haftası)
+        all_round["last"] = len(all_round)
     
-      df = df.fillna("")
+        all_round["tournament_id"] = t
+        all_round[py"season_id"] = s
+    
+        columns_to_select = ['round', 'name', 'slug', 'prefix', 'current', 'week', 'last','tournament_id', 'season_id']
+        
+        for column in columns_to_select:
+            if column not in all_round.columns:
+                all_round[column] = ""  
+                
+        df = all_round[columns_to_select]
+        
+        #df["UpdateTime"] = datetime.now()
+        
+        devam_indices = df[df['week'] == 'Devam'].index
+        if len(devam_indices) > 1:
+            for i in range(devam_indices[0],devam_indices[1]):
+                df.loc[i, 'week'] = 'Biten'
+                
       
-      return df
+        df = df.fillna("")
+        
+        return df
   
 ## Celery ve Model Parametrelerinin Alınması(tasks.py)
 
