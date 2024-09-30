@@ -1,4 +1,4 @@
-# Celery Görevleri Nasıl Çalışır.
+# Celery Görevleri Nasıl Çalışır..
 
 Bir celery modelinin çalışması için öncelikle bir modelimiz olmalıdır.
 Ayırca celery nin settings.py de eklenmesi gerekmektedir.
