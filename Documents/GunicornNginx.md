@@ -37,13 +37,17 @@ Servis dosyasının içeriğini aşağıdaki gibi yapılandırın:
     After=network.target
     
     [Service]
-    User=ahmety
+    User=ahmet
     Group=www-data
-    WorkingDirectory=/home/ahmety/Masaüstü/DjangoPro/sofa
-    ExecStart=/home/ahmety/Masaüstü/myenv/bin/gunicorn --workers 3 --bind unix:/home/ahmety/Masaüstü/DjangoPro/sofa/gunicorn.sock futbolprojesi.wsgi:application
+    WorkingDirectory=/home/ahmet/sofa
+    ExecStart=/home/ahmet/myenv/bin/gunicorn --workers 3 --bind unix:/home/ahmet/sofa/gunicorn.sock sofa.wsgi:application
     
     [Install]
     WantedBy=multi-user.target
+
+
+
+    
     Açıklamalar:
 
 User ve Group: Projeyi çalıştıracak kullanıcı (ahmety) ve grup (www-data).
