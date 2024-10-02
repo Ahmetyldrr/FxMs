@@ -102,39 +102,39 @@ burada tournaments modelimizde parametre almak için bu modeldeki verileri çağ
 daha sonra bu modelden gelen tournament.id ve season.id bilgilerini Roundinfo fonskiyonuna veriyoruz.
 Yapılan bu api çağrısından gelen veriler ise daha sonra for döngüsü ile tek tek RoundinfoModeline ekliyoruz.
 
-  @shared_task
-  def start_all_roundinfo_tasks():
-  
-      tournaments = Tournament.objects.all()  # Tüm turnuvaları alıyoruz
-      
-      for tournament in tournaments:
-          print(tournament.tournament_id)
-          time.sleep(1)
-          try:
-              df = Roundinfo(tournament.tournament_id, tournament.season_id)  # API'den veri çekme
-              for _, row in df.iterrows():
-                  RoundinfoModel.objects.update_or_create(
-                      tournament_id=row['tournament_id'],  # Model alanı olan `tournament_id`
-                      season_id=row['season_id'],  # Model alanı olan `season_id`
-                      round=row['round'],
-                      defaults={
-                          'name': row['name'],
-                          'slug': row['slug'],
-                          'prefix': row['prefix'],
-                          'current': row['current'],
-                          'week': row['week'],
-                          'last': row['last'],
-                      
-                      }
-                  )
-  
-          except Exception as e:
-              # Eğer bir hata olursa, ErrorLog modeline kaydediyoruz
-              RoundinfoErrorLog.objects.create(
-                  tournament_id=tournament.tournament_id,
-                  season_id=tournament.season_id,
-                  error_message=str(e)  # Hata mesajını kaydediyoruz
-              )
+    @shared_task
+    def start_all_roundinfo_tasks():
+    
+        tournaments = Tournament.objects.all()  # Tüm turnuvaları alıyoruz
+        
+        for tournament in tournaments:
+            print(tournament.tournament_id)
+            time.sleep(1)
+            try:
+                df = Roundinfo(tournament.tournament_id, tournament.season_id)  # API'den veri çekme
+                for _, row in df.iterrows():
+                    RoundinfoModel.objects.update_or_create(
+                        tournament_id=row['tournament_id'],  # Model alanı olan `tournament_id`
+                        season_id=row['season_id'],  # Model alanı olan `season_id`
+                        round=row['round'],
+                        defaults={
+                            'name': row['name'],
+                            'slug': row['slug'],
+                            'prefix': row['prefix'],
+                            'current': row['current'],
+                            'week': row['week'],
+                            'last': row['last'],
+                        
+                        }
+                    )
+    
+            except Exception as e:
+                # Eğer bir hata olursa, ErrorLog modeline kaydediyoruz
+                RoundinfoErrorLog.objects.create(
+                    tournament_id=tournament.tournament_id,
+                    season_id=tournament.season_id,
+                    error_message=str(e)  # Hata mesajını kaydediyoruz
+                )
 
 ## Modelin Admine Eklenmesi (Admin.py)
 
