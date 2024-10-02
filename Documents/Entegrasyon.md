@@ -14,22 +14,23 @@ Eski veritabanım vardı bunu siliyorum.
 
 bu komut ile veritabanım listelenir
 
-postgres=# psql -U ahmet          
-postgres-# \l
-                                                          List of databases
-               Name       |  Owner   | Encoding | Locale Provider | Collate |  Ctype  | ICU Locale | ICU Rules |      Access privileges       
-        ------------------+----------+----------+-----------------+---------+---------+------------+-----------+------------------------------
-         postgres         | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | 
-         proje_veritabani | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =Tc/postgres                +
-                          |          |          |                 |         |         |            |           | postgres=CTc/postgres       +
-                          |          |          |                 |         |         |            |           | proje_kullanici=CTc/postgres
-         soccer_db        | ahmet    | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =Tc/ahmet                   +
-                          |          |          |                 |         |         |            |           | ahmet=CTc/ahmet
-         template0        | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =c/postgres                 +
-                          |          |          |                 |         |         |            |           | postgres=CTc/postgres
-         template1        | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =c/postgres                 +
-                          |          |          |                 |         |         |            |           | postgres=CTc/postgres
-        (5 rows)
+        postgres=# psql -U ahmet      
+        
+        postgres-# \l
+                                                                  List of databases
+                       Name       |  Owner   | Encoding | Locale Provider | Collate |  Ctype  | ICU Locale | ICU Rules |      Access privileges       
+                ------------------+----------+----------+-----------------+---------+---------+------------+-----------+------------------------------
+                 postgres         | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | 
+                 proje_veritabani | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =Tc/postgres                +
+                                  |          |          |                 |         |         |            |           | postgres=CTc/postgres       +
+                                  |          |          |                 |         |         |            |           | proje_kullanici=CTc/postgres
+                 soccer_db        | ahmet    | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =Tc/ahmet                   +
+                                  |          |          |                 |         |         |            |           | ahmet=CTc/ahmet
+                 template0        | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =c/postgres                 +
+                                  |          |          |                 |         |         |            |           | postgres=CTc/postgres
+                 template1        | postgres | UTF8     | libc            | C.UTF-8 | C.UTF-8 |            |           | =c/postgres                 +
+                                  |          |          |                 |         |         |            |           | postgres=CTc/postgres
+                (5 rows)
 
 
 
