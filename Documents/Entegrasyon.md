@@ -36,7 +36,7 @@ postgres-# \l
         DROP DATABASE proje_veritabani;
         DROP DATABASE soccer_db;
 
-        Yeni Durumda gereksiz veri tabanları silinmiş olur.
+Yeni Durumda gereksiz veri tabanları silinmiş olur.
 
                                                        List of databases
          Name    |  Owner   | Encoding | Locale Provider | Collate |  Ctype  | ICU Locale | ICU Rules |   Access privileges   
