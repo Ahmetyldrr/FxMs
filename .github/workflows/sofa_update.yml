@@ -1,0 +1,54 @@
+name: SofaPro Update Workflow
+
+# İş akışının ne zaman çalışacağını belirtin (push ve pull request işlemlerinde)
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# İş akışında kullanılacak işlerin tanımı
+jobs:
+  update_model:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. GitHub deposunu klonlama
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      # 2. Python ve Django ortamını ayarlama
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'  # Python sürümünü belirtin (projeye göre değişebilir)
+
+      # 3. Gerekli bağımlılıkları yükleme
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. Django ayar dosyasını hazırlama (Gizli anahtar ve veritabanı bağlantı bilgileri)
+      - name: Prepare Django settings
+        run: |
+          echo "SECRET_KEY='$(openssl rand -base64 32)'" >> sofa/settings.py
+          echo "DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql', 'NAME': 'django_proje', 'USER': 'mydjango', 'PASSWORD': 'dicle123', 'HOST': 'localhost', 'PORT': '5432', }}" >> sofa/settings.py
+
+      # 5. Veritabanı migrasyonlarını çalıştırma
+      - name: Run migrations
+        run: |
+          python manage.py migrate
+
+      # 6. Modelleri güncelleme veya belirli bir Python dosyasını çalıştırma
+      - name: Update models and run custom script
+        run: |
+          python manage.py update_models  # Eğer özel bir yönetim komutunuz varsa
+          python manage.py shell -c "from app_name.models import MyModel; MyModel.objects.all().update(field='value')"
+        
+      # 7. Django testlerini çalıştırma (isteğe bağlı)
+      - name: Run tests
+        run: |
+          python manage.py test
