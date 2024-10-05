@@ -108,3 +108,18 @@ class MatchDataError(models.Model):
 
     def __str__(self):
         return f"Error in Tournament {self.tournament_id}, Season {self.season_id}, Round {self.round_num} - {self.created_at}"
+# models.py
+from django.db import models
+
+class ErrorLog(models.Model):
+    """
+    Genel hata günlüğü tutmak için kullanılacak model.
+    """
+    tournament_id = models.IntegerField(null=True, blank=True)
+    season_id = models.IntegerField(null=True, blank=True)
+    round_num = models.IntegerField(null=True, blank=True)
+    error_message = models.TextField()  # Hata mesajını saklayacak alan
+    created_at = models.DateTimeField(auto_now_add=True)  # Hata zamanı
+
+    def __str__(self):
+        return f"ErrorLog: {self.error_message} ({self.created_at})"
