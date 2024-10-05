@@ -96,6 +96,12 @@ DATABASES = {
         'PASSWORD': 'dicle123',
         'HOST': 'localhost',
         'PORT': '5432',
+        
+         'TEST': {
+            'NAME': 'existing_test_db',  # Mevcut bir veritabanı ismi girin
+            'MIRROR': 'default',  # Testler, mevcut veritabanını kullanacak
+         }
+         
     }
 }
 
