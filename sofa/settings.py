@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'data',
-    'django_celery_beat',
-    'django_celery_results',
+    # 'django_celery_beat',
+    # 'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -90,20 +90,30 @@ WSGI_APPLICATION = 'sofa.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_proje',
-        'USER': 'mydjango',
-        'PASSWORD': 'dicle123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        
-         'TEST': {
-            'NAME': 'existing_test_db',  # Mevcut bir veritabanı ismi girin
-            'MIRROR': 'default',  # Testler, mevcut veritabanını kullanacak
-         }
-         
+        'ENGINE': 'django.db.backends.sqlite3',  # Veritabanı motoru olarak SQLite kullanılır
+        'NAME': BASE_DIR / 'db.sqlite3',         # Veritabanı dosyasının adı ve konumu
     }
 }
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'django_proje',
+#         'USER': 'mydjango',
+#         'PASSWORD': 'dicle123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+        
+#          'TEST': {
+#             'NAME': 'existing_test_db',  # Mevcut bir veritabanı ismi girin
+#             'MIRROR': 'default',  # Testler, mevcut veritabanını kullanacak
+#          }
+         
+#     }
+# }
 
 
 
@@ -154,14 +164,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # RabbitMQ yerine Redis kullanıyoruz
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # Sonuçları da Redis'te saklayacağız
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Europe/Istanbul'
-CELERY_ENABLE_UTC = True
-CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'  # RabbitMQ yerine Redis kullanıyoruz
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # Sonuçları da Redis'te saklayacağız
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Europe/Istanbul'
+# CELERY_ENABLE_UTC = True
+# CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
 
@@ -192,7 +202,7 @@ CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 # CELERY_TIMEZONE = 'Europe/Istanbul'
 
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 100000
+# DATA_UPLOAD_MAX_NUMBER_FIELDS = 100000
 # settings.py
-CELERY_TASK_ALWAYS_EAGER = True # Doğru port numarasını kontrol edin
-CELERY_TASK_EAGER_PROPAGATES = True
+# CELERY_TASK_ALWAYS_EAGER = True # Doğru port numarasını kontrol edin
+# CELERY_TASK_EAGER_PROPAGATES = True

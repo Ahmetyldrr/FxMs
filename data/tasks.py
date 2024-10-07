@@ -10,8 +10,6 @@ from datetime import datetime
 
 
 
-
-
 def RoundData(t,s,r,slug="",prefix=""):
 
 
